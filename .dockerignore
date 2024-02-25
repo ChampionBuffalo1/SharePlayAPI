@@ -1,0 +1,14 @@
+dist
+logs
+.git*
+.husky
+.vscode
+.eslint*
+README.md
+.prettier*
+Dockerfile*
+nodemon.json
+node_modules
+.dockerignore
+docker-compose*
+npm-debug.log
