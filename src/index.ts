@@ -10,15 +10,17 @@ import Logger from './utils/Logger';
 import { createServer } from 'node:http';
 import { createRelayServer } from './rtcRelay';
 
-const app = express();
-const server = createServer(app);
-app
-  .disable('x-powered-by')
-  .set('trust proxy', 1)
-  .use(helmet(), cors(), morgan('dev'), express.json({ limit: '500kb' }), express.urlencoded({ limit: '16kb' }));
+(async () => {
+  const app = express();
+  const server = createServer(app);
+  app
+    .disable('x-powered-by')
+    .set('trust proxy', 1)
+    .use(helmet(), cors(), morgan('dev'), express.json({ limit: '500kb' }), express.urlencoded({ limit: '16kb' }));
+  app.use('/api', apiRouter);
+  app.get('/', (_, res) => res.sendStatus(200));
 
-app.use('/api', apiRouter);
-app.get('/', (_, res) => res.sendStatus(200));
-createRelayServer('/ws', server);
+  createRelayServer('/ws', server);
 
-server.listen(PORT, () => Logger.info(`Listening on port ${PORT}`));
+  server.listen(PORT, () => Logger.info(`Listening on port ${PORT}`));
+})();
