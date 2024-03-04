@@ -1,11 +1,12 @@
 import { WebSocket } from 'ws';
 import { RequestContent } from '../schema/SignalingSchema';
-import { createStream, transportConnect, transportProduce } from './EventHandlers';
+import { transportConnect, transportProduce, consumeMediaTransport, createDeviceTransport } from './EventHandlers';
 
 export const eventMapping: Record<string, Function> = {
-  'start-stream': createStream,
+  'create-transport': createDeviceTransport,
   'transport-connect': transportConnect,
   'transport-produce': transportProduce,
+  'consume-media': consumeMediaTransport,
 };
 
 export function handleMessage(socket: WebSocket, data: RequestContent) {
