@@ -14,10 +14,6 @@ export class Peer {
     });
   }
 
-  addConsumer(consumer: Consumer) {
-    this.consumers.push(consumer);
-  }
-
   close() {
     this.producer?.close();
     this.recvTransport?.close();
@@ -29,10 +25,10 @@ export class Peer {
 type Room = {
   worker: Worker;
   router: Router;
-  peers: Map<String, Peer>;
+  peers: Map<string, Peer>;
 };
 class RoomService {
-  private rooms: Map<String, Room>;
+  private rooms: Map<string, Room>;
   constructor() {
     this.rooms = new Map();
   }
