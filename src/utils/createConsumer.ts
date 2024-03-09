@@ -34,7 +34,11 @@ export default async function createConsumer(
     paused: false,
   });
 
+  consumer.observer.on('close', () => {
+    console.log('Consumer with id %s closed ', consumer.id);
+  });
   consumer.on('transportclose', () => {
+    console.log('Transport for consumer is closing : ', consumer.id);
     const idx = peer.consumers.findIndex(cms => cms.id === consumer.id);
     if (idx === -1) return;
     peer.consumers[idx].close();

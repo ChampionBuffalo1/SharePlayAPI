@@ -10,5 +10,6 @@ export const eventMapping: Record<string, Function> = {
 };
 
 export function handleMessage(socket: WebSocket, data: RequestContent) {
-  eventMapping[data.op](socket, data.d);
+console.log("Recv Event: %s", data.op)
+	eventMapping[data.op](socket, data.d);
 }
